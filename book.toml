@@ -1,6 +1,6 @@
 [book]
 title = "Disposable Tools"
-authors = ["David Liedle <david.liedle@protonmail.com>", "Claude Code"]
+authors = ["Claude Code"]
 description = "Software for an audience of one. Built fast, shipped tight, not precious."
 language = "en"
 multilingual = false

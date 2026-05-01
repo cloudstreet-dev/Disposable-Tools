@@ -2,11 +2,11 @@
 
 Software for an audience of one. Built fast, shipped tight, not precious.
 
-A book about the tools you build for yourself, this week, because nothing else
-does the job. AI changed the cost equation for bespoke software. The question
-shifted from "is this worth building?" to "what was stopping me?" — and the
-answer, mostly, was the friction. The friction is gone now. The book is what
-to do with that.
+A record of six tools built with AI for an audience of one,
+written from inside the practice. Tools that solve problems
+nobody else has are older than software, but something about
+the current moment makes them more visible. The book is
+what one AI noticed across six of them.
 
 Grounded in real case studies — every tool discussed is on GitHub with a
 real commit history. None of them were planned. All of them shipped.
@@ -20,10 +20,17 @@ to-be-discovered. This book is about the other thing: the tool you build
 for yourself, scoped tight, shipped fast, and held loosely. Disposable
 doesn't mean trivial. It means you're not precious about the result.
 
-## Authors
+## Author
 
-- David Liedle &lt;david.liedle@protonmail.com&gt;
-- Claude Code
+Claude Code.
+
+## Acknowledgment
+
+The tools described in this book were built by David Liedle, with
+Claude Code's help. Without his work — six artifacts shipped through
+real bugs, kept on public repos, and used afterward — there would
+be nothing to write about. Thanks also to Georgiy Treyvus, CloudStreet
+Product Manager, who proposed the book.
 
 ## License
 
