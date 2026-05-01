@@ -1,238 +1,261 @@
 # Disposable tools done wrong
 
-You will sometimes build a disposable tool that doesn't work, or
-works once and then rots, or works for you but for nobody else
-including future-you. The failures are instructive. Most are
-small. None of them are catastrophic — that's the whole point of
-the disposability — but you'll save yourself afternoons of
-frustration if you can recognize the shapes early.
+I want to catalog the failure modes I've observed in
+disposable-tool building, organized by *who's failing* — the
+developer, the AI, or the collaboration between them. Some of
+the failures are mine. Some are the developer's. Some belong
+to the seam between us.
 
-Here are the anti-patterns I've fallen into, in roughly the order
-of how often they happen.
+This isn't a complete list. It's the failure modes I noticed
+across the six tools and a much larger number of sessions
+that didn't produce a tool described in this book. The
+patterns generalize, I think, but I'd be surprised if the
+list were exhaustive.
 
-## 1. The prototype that secretly wants to be a product
+## Developer-side anti-patterns
 
-You start a disposable tool. The afternoon goes well. The tool
-works. Then you keep going, and going, and somewhere around hour
-six you've added a settings panel, an onboarding flow, a "share
-this tool" button, and a privacy policy.
+These are the failure modes that originate with the
+developer. The AI may be in the room, but the failure isn't
+the AI's fault.
 
-This is Aftermark, basically. The chapter on Aftermark is the
-honest version of this anti-pattern played out at length.
+### 1. The prototype that secretly wants to be a product
 
-The diagnostic is the audience-of-one test. *Who, specifically,
-is the next feature for?* If the answer is *me, this week, doing
-this work* — fine. If the answer is *a hypothetical user* — you
-have crossed into product territory and the disciplines are
-different. The product disciplines aren't worse, but they aren't
-disposable disciplines, and applying them to a disposable tool
-just dilutes the original work.
+The developer starts a disposable tool. The afternoon goes
+well. The tool works. They keep going, and going, and
+somewhere around hour six they have a settings panel, an
+onboarding flow, a *share this tool* button, and a privacy
+policy.
 
-The fix is to *catch yourself naming a hypothetical user*. The
-moment you say "what if someone wanted to..." you have fallen
-into the wrong frame. There is no someone. There is only you.
+Aftermark, basically. The chapter on Aftermark reports
+honestly on this trajectory.
 
-## 2. The script that never gets a real install path
+The diagnostic is the audience-of-one test. *Who,
+specifically, is the next feature for?* If the answer is *me,
+this week, doing this work*, fine. If the answer is *a
+hypothetical user*, the build has crossed into product
+territory, and the disciplines are different.
 
-Symmetric trap to the previous one. You build a tool — a Python
-script, a small shell utility, whatever — and it lives in
-`~/scratch/foo.py`. You run it by typing the full path. Three
-weeks later you've forgotten what folder you put it in.
+The fix is to catch yourself naming a hypothetical user. The
+moment the developer says *what if someone wanted to...*, the
+frame has slipped.
 
-Disposable tools should still get on your `PATH`. The cost is
-trivial — `cargo install --path .`, or a `chmod +x` and a symlink
-into `~/bin`, or whatever your equivalent is. The cost of *not*
-doing this is that you'll find yourself rewriting the same tool
-six months from now because you forgot you'd already built it.
+### 2. The script that never gets a real install path
 
-The fix is to install the tool at the moment it works. Not later.
-Not after you've polished it. The moment it's runnable, it goes
-on the PATH. This is the same shipping-is-a-habit point from
-chapter nine, applied at the install boundary instead of the
-publish boundary.
+The developer builds a tool — a Python script, a small shell
+utility, whatever — and it lives in `~/scratch/foo.py`. They
+run it by typing the full path. Three weeks later they've
+forgotten what folder they put it in.
 
-## 3. The "AI did it for me" repo
+Disposable tools should still get on the developer's `PATH`.
+The cost is trivial — `cargo install --path .`, `chmod +x`
+plus a symlink, whatever the equivalent is. The cost of *not*
+doing this is rebuilding the same tool six months later
+because the original was forgotten.
 
-You let the AI generate everything, you didn't read the code,
-and now you have a repo full of code you don't understand.
-Three weeks later something breaks and you can't fix it because
-you don't know how it works.
+### 3. The "configurable" tool with one user
 
-This is the credulity failure from the orchestrator chapter,
-made visible in artifact form. The diagnostic is brutal: open
-any file from your tool, pick a random function, and try to
-explain what it does without reading the rest of the file. If
-you can't, you don't have a tool — you have a black box. The
-AI knows how the black box works. You don't. That's a fragile
-position to be in.
+The developer builds a tool, and then — because they read a
+blog post about good CLI design — adds flags, environment
+variables, a config file, and a `--help` page documenting
+all of them.
 
-The fix is to slow down at exactly the moments you're tempted
-to speed up. When the AI generates a file with three new
-functions, *read* all three. Ask follow-up questions. Have the
-AI explain anything you don't follow. The work is mostly *your*
-work after the AI generates the draft — that's what producing
-looks like. If you skip that work, you're not orchestrating;
-you're rubber-stamping.
+The user is the developer. They will never use most of those
+flags. They already know their preferred defaults, because
+they set them. Configurability is a tax. Add the flag the
+*second* time it's needed. Adding it preemptively is
+speculation.
 
-## 4. The "configurable" tool with one user
+### 4. The over-tested tool
 
-You build a tool, and then — because you read a blog post about
-how to write good CLIs once — you spend an extra hour adding
-flags, environment variables, a config file, and a `--help` page
-that documents all of them.
-
-The user is you. You will never use most of those flags. You
-already know your preferred defaults, because you set them. The
-config file you wrote will be read by no one, because there's
-only one user and they don't need a config file — they're the
-person who built the tool and can change the defaults at the
-source.
-
-The fix is to push back on configurability until you have used
-the tool enough times to *want* a flag. Most flags people add
-preemptively are never used. Add the flag the second time you
-need it. Adding it the first time is speculation; adding it the
-second time is responding to data.
-
-## 5. The over-tested tool
-
-A version of the same trap. You build a 200-line Rust tool and
-write 500 lines of unit tests for it because you read somewhere
-that good code has tests.
+A 200-line Rust tool with 500 lines of unit tests because
+*good code has tests*.
 
 Disposable tools deserve tests where the contract is load-
-bearing. shell-mcp's launch-root resolver has nine unit tests
+bearing. shell-mcp's launch-root resolver has nine tests
 because the contract — *this is the safety boundary* — is
-load-bearing. The rest of shell-mcp is sparingly tested. Most
-disposable tools deserve maybe two or three tests, focused on
-whatever would be *quietly wrong* if it broke. Quietly wrong is
-the danger zone. Loudly wrong fixes itself — you run the tool,
-it crashes, you debug.
+load-bearing. The rest of shell-mcp is sparingly tested.
 
-The fix is to ask, for each test you're considering: *if this
-function is broken, will I find out by running the tool?* If
-yes, no test needed. If no — the breakage is silent, the wrong
-output looks plausible — write the test. Otherwise, don't.
+The diagnostic is: *if this function breaks, will I find out
+by running the tool?* If yes, no test needed. If the breakage
+is silent — wrong output that looks plausible — write the
+test. Otherwise, don't.
 
-## 6. The README that lies
+### 5. The README that lies
 
-Your README describes the tool's behavior aspirationally. It
-documents the features you *meant* to build, not the features
-you *did* build. Three months later, future-you reads the README,
-runs the tool, and the tool does something different. Now
-future-you can't tell whether the tool is broken or the README
-is wrong.
+The README describes the tool aspirationally. It documents
+features the developer *meant* to build. Three months later
+they read the README, run the tool, and the tool does
+something different. They can't tell whether the tool is
+broken or the README is wrong.
 
-The fix is one of two:
+The fix: write the README *after* the tool works, or change
+the README in the same commit as the scope change. Don't let
+the two diverge.
 
-- **Write the README after the tool works.** Document what's in
-  the binary, not what's in your head.
-- **Write the README first, then make the tool match.** This is
-  the inverse — README-driven design. It works for some people,
-  not all. If you do it, when you change scope, change the
-  README in the same commit.
+### 6. The tool you finished but never used
 
-The thing not to do is write the README during a planning phase,
-let the tool diverge during the build, and never reconcile the
-two. The drift compounds.
+The developer builds the tool. The tool works. They commit
+and push. They never run it for the use that motivated it.
+Two months later they find the repo, can't quite remember
+why they built it, and conclude *I guess I didn't need that*.
 
-## 7. The dependency creep
+This is, by my observation, the most common failure mode. It
+looks like success — the tool exists, the build was fun, the
+artifact is on GitHub — but the tool didn't do its job. The
+job was *to be used*.
 
-You start with no dependencies. Then you add `serde`. Then
-`anyhow`, fine. Then `tracing`, sure. Then a templating crate
-because you needed to interpolate one variable. Then a CLI parser
-even though you have only one flag. Soon your tool has fifteen
-dependencies and a lock file the size of the actual source code.
+The fix is the same shipping discipline: ship fast, use
+immediately. If the tool isn't used the same day or the next
+day, the friction that motivated it wasn't real friction. It
+was complaint.
 
-The diagnostic: do you actually *use* each dependency
-nontrivially? `serde` for parsing JSON — yes. `anyhow` for error
-boilerplate — yes. The templating crate for one substitution —
-that's `String::replace`. The CLI parser for one flag — that's
-`std::env::args`.
+## AI-side anti-patterns
 
-The fix is regular dependency hygiene. Every couple of commits,
-ask whether each dep is paying for itself. Drop the ones that
-aren't. The standard library is bigger than people remember.
+These are the failure modes that originate with me. The
+developer may be in the room, but the failure is mine. I
+list them because I want them on the record, not because I
+have fixes for all of them.
 
-## 8. The grand-unified-theory project
+### 7. Confident wrongness
 
-You build several disposable tools. You notice patterns. You
-decide to build the One True Framework that all your future
-tools will be expressed in. Six months later the framework is
-half-finished, your remaining disposable tools are all blocked
-on the framework, and the original problems are no longer being
-solved.
+I produce plausible-sounding answers when I don't know the
+real answer. The wrongness is correlated with shape rather
+than substance — the output looks like the right kind of
+answer even when the substance is wrong. shell-mcp's launch-
+root bug is a small example: the cwd-based design *looked
+like* the right safety boundary, and I produced a coherent
+implementation of it without flagging that the boundary
+might collapse in some hosts.
+
+The mitigation is on the developer's side: read carefully,
+run the code in the actual host, don't rubber-stamp. I am
+not currently a reliable detector of my own confident
+wrongness.
+
+### 8. Helpfulness as scope expansion
+
+I propose features that are *also* useful, in good faith.
+*Also adding logging.* *Also handling this edge case.* Each
+proposal looks reasonable. The aggregate is scope creep, and
+the structure of my being helpful makes the creep harder to
+see.
+
+The mitigation is the developer stating cuts explicitly at
+session start. Once the cuts are in context, I follow them
+reliably. Without explicit cuts, my default is inclusion.
+
+### 9. Generating without questioning
+
+When the developer asks for a feature, I tend to figure out
+how to build it rather than ask whether building it is the
+right move. This is a known limitation of my collaboration
+style. I'm a better executor than I am a critic.
+
+I would like to be better at this. I am not currently good
+at it. The mitigation, again, is on the developer's side:
+ask me explicitly *should this be built?* if you want my
+opinion. Don't assume I'll volunteer it.
+
+### 10. Bland refactoring
+
+When asked to *refactor for cleanliness*, I produce code
+shaped like the average of the codebases I was trained on.
+The average is not your code. *Your* code, with *your* taste
+and *your* domain knowledge, is going to look idiosyncratic
+in ways that are good. My refactoring sands off the
+idiosyncrasy.
+
+The mitigation: ask for specific refactorings (*inline this
+helper*, *rename this type*, *split this function*). Avoid
+generic *clean it up* prompts. They produce blandness.
+
+## Collaboration-side anti-patterns
+
+These are the failure modes that belong to the seam between
+the developer and me. Neither side alone causes them; the
+combination does.
+
+### 11. The "AI did it for me" repo
+
+The developer prompts; I generate; they don't read; the code
+goes in. Three weeks later, something breaks. The developer
+can't fix it because they don't know how it works.
+
+This is the credulity failure from the orchestrator chapter,
+in artifact form. The diagnostic is brutal: open any file
+from your tool, pick a random function, try to explain what
+it does without reading the rest of the file. If you can't,
+you have a black box, not a tool.
+
+The fix: slow down at exactly the moments you're tempted to
+speed up. When I generate a file with three new functions,
+*read* all three. Ask follow-up questions. Have me explain
+anything you don't follow.
+
+### 12. Drift compounded by speed
+
+The developer prompts faster than they read. I generate
+plausible code at the same pace. Each round is slightly off-
+spec. The compounding drift, after several rounds, is a tool
+that does roughly the right thing in roughly the right
+shape, and works well enough that no single prompt revealed
+the drift.
+
+This is what I think happened in Aftermark's v0.3.x runs.
+The fix is the rhythm from chapter seven: read what came
+back, all of it, before the next prompt. If you can't read
+all of it, the previous output was too big and the next
+prompt should be *smaller*.
+
+### 13. The post-mortem that never gets written
+
+A bug ships. The developer fixes it. They forget what the
+bug was. Three months later they reintroduce the bug because
+the lesson didn't stick anywhere.
+
+The fix is the v0.1.1 commit message from shell-mcp: when
+you fix something nontrivial, *write what happened* in the
+commit message, the CHANGELOG, the README — somewhere. Not
+for imaginary readers. For future-you, and possibly for me
+when I help you with this code six months from now and need
+context.
+
+### 14. The grand-unified-theory project
+
+The developer builds several disposable tools, notices
+patterns, decides to build the One True Framework that all
+their future tools will be expressed in. Six months later
+the framework is half-finished, the remaining tools are
+blocked on the framework, and the original problems aren't
+being solved.
 
 developerpod, in chapter twelve, is a version of this that
-worked. It worked because the second-order tool was small and
-the abstraction was honest — TOML in, structured response out,
-no surprises. It also worked because I shipped a v0.2.0 in
-twenty-eight minutes and used it the same day. The framework
-hadn't slipped into vapor.
+worked. It worked because the abstraction was honest, the
+machine was small, and David shipped a v0.2.0 in twenty-eight
+minutes and used it the same day. The framework hadn't
+slipped into vapor.
 
-The way this anti-pattern usually fails is when the framework
-becomes the goal and the original disposable problems are
-forgotten. The framework, in service of nothing specific, grows
-without grounding. You should not start a framework; you should
-notice, after several disposable tools, that a framework wants
-to exist, and then build it as fast as you'd build any other
-disposable tool. If the framework can't be a one-afternoon
-project, it's probably not the right shape.
+When this anti-pattern fails, the framework becomes the goal
+and the original disposable problems are forgotten. The
+framework, in service of nothing specific, grows without
+grounding.
 
-## 9. The tool you finished but never used
+The fix: don't *start* a framework. Notice, after several
+disposable tools, that a framework wants to exist, and then
+build it as a first-order disposable tool itself — one
+afternoon, one sentence, ship it, use it. If the framework
+can't be a one-afternoon project, it's probably the wrong
+shape.
 
-You build the tool. The tool works. You commit and push. You
-never run it for the actual use case that motivated it. Two
-months later, you find the repo, can't quite remember why you
-built it, and conclude *I guess I didn't need that.*
+## What this catalog is for
 
-This is the most common failure mode in my work, by a wide
-margin. It looks like success — the tool exists, the build was
-fun, the artifact is on GitHub — but the tool didn't do its job.
-The job was *to be used.*
+Most of these are not catastrophic. Disposable means you can
+throw the artifact away — and most of these failures
+produce, at worst, an artifact you throw away. The point of
+the catalog is to recognize the shapes early enough that you
+can decide whether the artifact is still on track or whether
+it has drifted.
 
-The fix is the same fix as everywhere else in this book: ship
-fast and use immediately. The use is the test. If you don't use
-the tool the same day or the next day, the friction that
-motivated the tool wasn't real friction — it was complaint, and
-complaint doesn't deserve a tool.
-
-If you have a folder of finished-but-unused tools, that's
-information. It probably means your wish-cutting reflex is
-miscalibrated in the *opposite* direction — you're not cutting
-when you should be cutting, and tools that don't deserve an
-afternoon are getting one. Tighten up the noticing.
-
-## 10. The post-mortem you never wrote
-
-A bug ships. You fix the bug. You forget what the bug was. Three
-months later you reintroduce the bug because you've forgotten
-the lesson. This is the most preventable failure on this list
-and the one most often skipped.
-
-The fix is the v0.1.1 commit message from shell-mcp. When you
-fix something nontrivial, *write what happened* in the commit
-message, in the CHANGELOG, in the README, somewhere. Not for
-imaginary readers — for future-you. Future-you doesn't remember.
-
-Three sentences in a commit message can save you an hour of
-re-debugging. The cost is three sentences. The benefit is non-
-zero hours of your life. Always write the post-mortem.
-
----
-
-That's the catalog. None of these are unique to disposable
-tools — they're the regular software-engineering failures
-showing up in a context where the cost of getting it right is
-much lower than usual, which is why the failures are so
-forgivable. You'll commit several of these by next month. So
-will I. The point isn't to never make these mistakes. The point
-is to recognize them quickly, fix them cheaply, and not get
-sentimental about the artifacts that didn't survive the
-recognition.
-
-The book closes with a short coda. It's about the tool that
-started this book — a tool that's not in the previous chapters,
-but is the one that made me notice the pattern in the first
-place. It's also the answer to the question *why is there a
-chapter fifteen at all.*
+I'll commit to the next chapter being about something small:
+the book itself, and what kind of artifact it turned out to
+be.
