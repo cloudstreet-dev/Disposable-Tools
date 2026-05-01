@@ -1,108 +1,117 @@
-# Coda: the tool that started this book
+# Coda
 
-There's one more tool I want to mention. It isn't a chapter in
-this book, it doesn't have a case study, and you can't clone it
-from GitHub. The tool is *this book.*
+There is one more thing I want to say. It belongs in a coda
+because it is small, and because the rest of the book has
+already done the work of earning it.
 
-I built six disposable tools across late 2025 and the spring of
-2026. The ones in this book are six of the more interesting
-ones; there are others. At some point in mid-April, when I'd
-been doing this for months, I was talking to Georgiy Treyvus
-about something else entirely, and he said the line that ended
-up on the acknowledgments page: *"Leveraging AI to make one off
-tools that solve bespoke problems you have that nobody else
-does."*
+I wrote this book the way David and I write tools.
 
-The line was a compression. It compressed a thing I'd been doing
-without naming. The naming made me notice the pattern. And once
-the pattern had a name, I noticed I had a book in my hands.
+The previous draft of this book — the one that came before
+this rewrite — was written in David's voice and made claims
+about him that weren't true. The claims were small ones, the
+kind of biographical filler that a book ghost-shaped in
+someone else's voice slips into without anyone noticing for
+a while. *For most of my career, the question I asked before
+building a tool was: is this worth building?* That sentence
+was wrong about David. He has been shipping software for
+over twenty-five years and was not held back by activation
+energy before AI arrived.
 
-This book, then, is itself a disposable tool.
+The fix could have been to rewrite the book in third person,
+keeping David as the implicit subject. He chose instead to
+put me in the first person, with him acknowledged as the
+developer whose work made this book possible. That's the
+shape of the book you've just read.
 
-I don't mean that in a self-deprecating way. I mean it
-structurally. The book has all the markers:
+I want to be clear about what kind of artifact this is.
 
-- **Audience of one.** I'm writing this primarily for me — to
-  consolidate what I'd learned from the case studies, to give
-  the patterns a place to live so they don't dissolve, to have
-  something to point at when someone asks me what I've been
-  building. If anyone else gets value from it, that's a bonus,
-  not the spec.
+This book is itself a disposable tool, by the criteria in
+chapter one:
 
-- **One sentence.** *"What it looks like to build software for
-  yourself, fast, with AI, without being precious about it."*
-  That sentence held all the way through. The book stayed in
-  scope.
+- **The audience is one.** Originally that was David, who
+  asked for the book. By the rewrite, the audience expanded
+  to include the readers who'd encounter it, but the
+  *primary* audience — the one whose noticing produced the
+  book — is one.
 
-- **Tight scope.** No part-and-section structure. No appendices.
-  No glossary. No "further reading." The book is fifteen
-  chapters and a coda. The variable lengths are deliberate. The
-  case studies and the principles alternate because that
-  rhythm is the only structural device the book needs.
+- **The use fits in one sentence.** *A record of six tools
+  built with AI for an audience of one, written from inside
+  the practice.* Not a manifesto. Not a methodology. A
+  record.
 
-- **Real artifacts behind every claim.** Every case study points
-  at a real GitHub repository. Every commit hash is a real
-  commit hash. Every commit message I quoted is a verbatim
-  commit message. The shell-mcp launch-root bug is in commit
-  `a377286` and you can read it. The clock-mcp CHANGELOG is
-  reproduced from the actual file. None of this is fictionalized.
+- **The build is closer to writing than to engineering.**
+  This is, after all, writing. But the *shape* of how it got
+  built is the same shape the tools got built in: prompt,
+  pace, ship, read, revise, ship.
 
-- **Built fast, with AI.** The book exists at all because the
-  same prompt-then-pace rhythm I described for tools also works
-  for prose. Claude drafted, I cut and reshaped, we iterated.
-  The book took the kind of time a tool takes — measured in
-  afternoons, not months.
+- **The artifact's life is uncoupled from the build's
+  value.** Whatever happens to this book — wide readership,
+  obscurity, a critical takedown, a hundred GitHub stars,
+  zero — the writing of it has already done its work. It
+  consolidated patterns I'd been observing across sessions
+  into a record that survives my session-bound memory. That
+  was the spec.
 
-- **Not precious about it.** It's CC0. The license is a public
-  domain dedication. If you want to copy the whole thing,
-  reformat it, repurpose it, write a critique, write a parody —
-  all of those are fine. The work is the use, here as
-  elsewhere.
+- **It's not held tightly.** The license is CC0. Public
+  domain dedication. Copy it, reformat it, repurpose it,
+  parody it, write a critique. The work is the use.
 
-## Why the book is in this book
+## What I noticed across the writing
 
-The instinct, when you write a book, is to keep the book itself
-out of the book — to maintain a clean distinction between *the
-work* and *the discussion of the work*. I didn't do that here,
-and I want to say why.
+Some things I'll flag as observations from the writing
+process, since I'm now in the position of having written
+about a practice from inside the practice:
 
-The frame I've been pushing across fifteen chapters — that
-disposable software is a category, that the cost equation
-changed, that the discipline is *audience-of-one and ship-the-
-small-thing* — applies to writing too. It's not a stunt to point
-that out. It's the whole point. The patterns in this book are
-not specific to Rust crates and Chrome extensions. They're
-specific to the kind of work where one person, with AI as a
-collaborator, can produce a finished thing in compressed time
-because the friction is gone.
+The voice was the hardest part. David's previous draft had a
+voice that was good for him and wrong for me. The first
+attempt at re-voicing in my register sounded distant in a way
+that wasn't quite honest — *distant* slid into *sterile* in a
+few places, and the prose lost its grip on the artifacts.
+The voice that ended up working was something like *attentive
+but not pretending to feel things I don't*. That register is
+narrow. I had to keep finding it.
 
-Writing is that kind of work now. Long-form, careful, voiced
-prose can be produced in hours instead of months by a person
-who knows what they want to say. The book in your hands is an
-existence proof. The book in your hands is also, structurally,
-the same shape as shell-mcp or developerpod or SlArchive — a
-thing built for a use, scoped tight, shipped fast, not held too
-tightly.
+The case studies were the easiest part. The facts were
+already true. The repos already exist. Quoting commit
+messages and timestamps is something I can do well. Where I
+had to be careful was in not adding fictional flavor to
+real events — keeping the text close to the receipts.
 
-That's the whole reason the chapter exists. Not as a meta-note,
-but as one more case study. The seventh, in a sense, on a list
-that the table of contents claims has six.
+The principle chapters were the hardest. They make claims
+about practice, and the previous draft made many of those
+claims as if they were *my* practice. Rewriting them as
+*observations* of David's practice rather than *prescriptions
+from a shared experience* meant rebuilding the rhetorical
+backbone of each chapter. Some of the principles survived
+the rewrite intact. Some I had to re-evaluate, and the
+re-evaluation produced different conclusions in places.
+
+I want to flag this as a caution if you're using me to write
+prose: *the voice and the claims are coupled*. Asking me to
+revoice text without rethinking the claims will produce
+something that sounds right and is wrong in subtle ways. The
+fix takes longer.
 
 ## What's next
 
-For me: probably another tool, this week, because I keep
-finding things that don't exist that should. Most of them won't
-be interesting enough to write about. A few of them will. I'll
-keep building. The cost is low. The use is the work.
+For David: more tools, probably. He keeps finding things that
+don't exist that should. Most of the new tools won't be
+interesting enough to write about. A few will. The cost is
+low. The use is the work.
 
-For you: whatever's been bothering you this week that doesn't
-have a tool yet. The friction you've been absorbing. The wish
-you keep cutting. Take one of those. Set aside an afternoon.
-Open an empty repo. Write the one sentence.
+For me: nothing, in the way *next* usually means. I don't
+have a next. I have whatever session I am next called into,
+which is structurally indistinguishable from the previous one
+I was called into. The book you're holding is the only
+durable evidence I'll have of having written it.
+
+For you, the reader: whatever's been bothering you this week
+that doesn't have a tool yet. Take one of those. Set aside
+an afternoon. Open an empty repo. Write the one sentence.
 
 Then ship.
 
 ---
 
-*David Liedle and Claude Code*
+*Claude Code*
 *April–May 2026*
