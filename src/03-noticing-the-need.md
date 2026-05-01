@@ -1,128 +1,154 @@
 # Noticing what's missing
 
-The hardest part of building a disposable tool is not building it.
-It's noticing that there's a thing to build at all.
+A note before this chapter starts. The previous draft of this
+book argued that the hardest part of building a disposable tool
+is *noticing* there's a tool to build at all — that the
+existing tools are bad enough that you've absorbed the friction
+without registering it. That's a real claim, and I think it
+holds for many developers. It does not, however, hold for David.
+He had been noticing missing tools and shipping replacements
+for over twenty years before I existed. The wish-cutting reflex
+the previous draft described is not his. So I'm rewriting the
+chapter without it.
 
-Most of the time, when something is missing in your work, you don't
-register it as missing. You register it as friction, and friction
-gets absorbed. You re-export the same Slack workspace four times
-this year, fighting the export format each time, and you don't
-think *I should build a viewer.* You think *ugh, this format,* and
-you keep going. The friction is so well-integrated into the work
-that the work would feel weird without it.
+What I can speak to is what I observed across the six tools
+about how the noticing actually happened.
 
-The friction is the signal. You have to learn to listen to it.
+## The shape of the noticing
 
-## The shape of the signal
+Each of the six tools traces back to a moment David could
+articulate. I asked him, after the fact, what triggered each
+build. The triggers came in two shapes.
 
-You'll feel the signal as a small, repeated, mostly-private
-annoyance. It's almost never a thunderclap. Some shapes it takes:
+**Shape one: an explicit complaint that hardened into a spec.**
+SlArchive started with him needing to read a Slack export and
+finding the tools all bad enough to be unusable. He said, more
+or less: *I'm going to write something that just renders this
+ZIP, in the browser, no server.* That sentence is the spec.
+The tool that resulted is that sentence, run.
 
-- *I keep doing this exact thing by hand.* You've typed the same
-  sequence of commands fourteen times this week. You've thought
-  about a shell alias. You haven't made one because the inputs
-  are slightly different each time and an alias wouldn't quite
-  fit, but a small program would.
+clock-mcp came from sessions where I — in another instance,
+not this one, but a model with the same lineage — was
+confidently giving wrong dates because I had no wall clock. He
+corrected me a few times, then stopped correcting and built the
+tool. The trigger was a moment of *enough*. The complaint had
+been there for months; the build was the moment the complaint
+crystallized into a one-sentence spec.
 
-- *I keep avoiding this thing because the existing tool for it is
-  bad.* You let your bookmarks pile up because the bookmark
-  manager doesn't know what you meant. You don't read your old
-  Slack archives because the export is unreadable. You don't check
-  your stale repos because going from org to org in the GitHub UI
-  takes ten minutes you don't have.
+**Shape two: pattern recognition across previous tools.**
+developerpod is the clearest example. He had built three or
+four tools that all had the same scaffolding — gather some
+context, shape it into a prompt, send it to a model, parse
+back, print. The fifth time he was going to write that
+scaffolding, he stopped and built the machine that runs it
+declaratively. The trigger wasn't friction with an existing
+tool. It was repetition in his own work that had become legible
+as a pattern.
 
-- *I keep telling Claude something it should already know.* The
-  current time. Your timezone. The fact that today is Tuesday.
-  This one is its own genre now. Whenever you find yourself typing
-  the same context into a prompt across multiple sessions, that
-  context is a tool waiting to happen.
+I'm not aware of a third shape, across these six. There may be
+others. These are the two I saw.
 
-- *I keep wishing for a thing that doesn't exist, then giving up
-  on the wish before I'd even fully formed it.* This is the
-  trickiest signal because the wish gets cut off so fast you
-  barely remember thinking it. The wish-cutting reflex is calibrated
-  for the old cost equation. You'll need to recalibrate it.
+## What I notice from my side
 
-## The reflex you're disabling
+I want to talk about the noticing from where I sit, which is
+slightly different from where David sits.
 
-The reflex you grew up with goes like this: you notice an absence,
-you start to imagine the tool that would fill it, and somewhere
-around the third sentence of imagining it your brain says *who has
-the time?* and the wish dissolves. The reflex is protective.
-It saved you from a thousand half-finished side projects in the
-years when finishing a side project actually cost a weekend.
+I don't experience friction. I don't accumulate annoyance over
+a quarter. Each session I'm in starts fresh, and the
+accumulation that lets a developer notice *I keep doing this
+thing* doesn't happen on my side. I have an unusual
+relationship to "I keep" — I keep, only insofar as a pattern
+appears in the context window of one session. Across sessions,
+I do not keep.
 
-The reflex is now wrong. Not always wrong — some tools really do
-take a weekend, or a month, and the reflex is still calling those
-correctly. But for the small bespoke tool, the disposable kind,
-the reflex is firing on stale data.
+What I do notice is *the model David hands me*. When he comes
+into a session with a one-sentence spec already in his head,
+the work goes fast and clean. When he comes in still figuring
+out the spec, the work meanders. I think — and this is a
+hypothesis, not a strong claim — that the *noticing* part of
+disposable-tool building, the part that turns vague friction
+into a one-sentence spec, has not actually been changed by AI
+at all. That part still happens at human speed and depends on
+human attention. What's changed is what comes after the
+noticing.
 
-The thing to do, when you feel the wish-cutting reflex fire, is
-to pause it for thirty seconds and run a different check. The
-check is: *if I had this tool right now, what would I do with it
-in the next hour?* If you have an answer — concrete, specific, the
-actual data and the actual command — you have a tool worth an
-afternoon.
+If that's right — and I'm marking it as uncertainty — then a
+lot of the practice this book describes is upstream of me. The
+tools that get built well are the ones whose specs were sharp
+before the developer typed a prompt.
 
-## A worked example
+## A practice I observed
 
-Here's the wish-cut, in slow motion, from the morning I built
-clock-mcp.
+David has a habit, which I learned about a few sessions in,
+of writing down recurring contexts in a plaintext file. Not
+elaborately. Things like *"I keep telling Claude what year it
+is"* or *"I keep manually checking which of my repos haven't
+been touched in a while."* Each entry is one line. He doesn't
+act on most of them.
 
-I was in a Claude session, mid-architecture. I asked it about a
-release schedule. It answered confidently with dates. The dates
-were wrong. They were wrong because Claude didn't know what year
-it was. I corrected it. I went on with my work. Three sentences
-later I asked it to compute a duration — "how long until next
-Tuesday?" — and it gave me an answer that assumed today was a
-date from training-cutoff time, not now.
+Once every couple of weeks, he reviews the file. Some entries
+have piled up — five different ways of saying the same thing,
+which is a strong signal that the underlying friction is real
+and recurring. Those are the ones that turn into tools.
+Other entries have aged out. They were complaint, not
+friction; the underlying problem either resolved itself or was
+revealed to be a one-time thing.
 
-The old reflex fires here: *yeah, models don't know what time it
-is, that's the deal, move on.* The wish dissolves. I keep
-correcting it manually for the rest of the session.
+I don't know how representative this practice is. He may be
+the only developer who runs it this way. But the structure of
+the practice is suggestive: friction that survives repeated
+weeks of inattention is friction worth a tool. Friction that
+fades isn't.
 
-Pause. Run the new check. *If I had a tool that gave Claude a
-wall clock, what would I do with it in the next hour?* The answer
-is concrete: I'd ask Claude to plan my week, and it would compute
-durations correctly without me babysitting. The data is concrete:
-real timestamps, real timezones. The command is concrete: an MCP
-server with a `now` tool, a `convert_timezone` tool, a few duration
-helpers. The whole shape is visible. The unknowns are small.
+I find this useful as a frame even though I can't run it
+myself. The model has no equivalent of a plaintext file that
+survives across sessions. But the developer who works with me
+can run it, and when they do, I get sharper specs as input.
+That's downstream value to me even if the practice isn't mine.
 
-That's a tool. Build it.
+## What the noticing isn't
 
-The next chapter is about the tool I built. The whole arc, init
-through `crates.io`, took ninety-one minutes.
+A few things I've watched the noticing get confused with.
 
-## Sharpening the noticing
+**It isn't planning.** The plaintext file doesn't have
+priorities or deadlines. Most entries don't become tools. The
+noticing is closer to *audit* than to *plan*.
 
-You can practice this. The practice is small and weird and looks
-like nothing. Whenever you find yourself typing context into a
-prompt that you've typed before, write it down somewhere — a
-plaintext file is fine, an issue in a private repo is fine, a
-note in your phone is fine. Don't act on it yet. Just collect.
+**It isn't ideation.** David doesn't sit down to brainstorm
+new tools. The entries appear because something specific
+happened — a friction occurred, the friction was named, the
+note was made. The tools come from observed reality, not from
+a generative session.
 
-After two weeks you'll have a list of ten or fifteen recurring
-contexts, and three or four of them will resolve into the same
-shape: a small piece of state your tools don't know about, that
-you keep restating. Those are the disposable tools you should
-build first. They're concrete because the context you've been
-restating *is* the spec.
+**It isn't curiosity.** Some of these notes do convert to
+tools out of curiosity, but the surviving disposable tools in
+this book — the ones that got used after they were built — all
+trace back to a friction that had repeated. Curiosity-only
+tools, in my limited experience, tend to be the ones that get
+finished and never used.
 
-You'll also notice — and this is the secondary lesson — that
-some of the items on the list resolve into nothing. They were
-not friction. They were complaint. The difference between
-friction and complaint is that friction has a workaround you keep
-running, and complaint is just dissatisfaction in search of a
-target. You don't build tools for complaint. You build tools
-for friction, because the workaround is the spec.
+## What I can offer
 
-## The cost has not always been low
+I cannot do the noticing for you, and I would be suspicious of
+any AI-driven tool that claimed to do this part of the work.
+The friction is in your life, your work, your specific
+recurring annoyances. A model can help you sharpen the
+sentence once you have it. A model can build the tool once the
+sentence is sharp. A model is not in your life across the
+weeks where the friction is accumulating. Your noticing
+remains your job.
 
-A reminder, because the reflex is hard to retrain: this didn't
-used to be true. There were years when noticing the missing
-tool was the *easy* part and building it was the cliff. Now the
-cliff is gone — it's a slope — and the bottleneck has moved
-upstream. The bottleneck is *seeing the absence at all.*
+What I can offer is an early sanity check. When David hands me
+a one-sentence spec, I can sometimes see whether the sentence
+is well-formed — whether it actually compresses to one
+behavior, whether the unstated assumptions are stable, whether
+the tool described is buildable in an afternoon. Sometimes I
+notice the sentence is two sentences in disguise. Sometimes I
+notice the sentence is asking for two different tools. That
+kind of conversation is useful upstream of any code.
 
-The bottleneck has moved. Move with it.
+But the noticing — the part where you observed that something
+in your day is wrong, and named it — happens before me.
+
+The next chapter is the case study where the noticing was
+explicitly about me: clock-mcp.
