@@ -1,0 +1,26 @@
+[book]
+title = "Disposable Tools"
+authors = ["David Liedle <david.liedle@protonmail.com>", "Claude Code"]
+description = "Software for an audience of one. Built fast, shipped tight, not precious."
+language = "en"
+multilingual = false
+src = "src"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+git-repository-url = "https://github.com/cloudstreet-dev/Disposable-Tools"
+edit-url-template = "https://github.com/cloudstreet-dev/Disposable-Tools/edit/main/{path}"
+
+[output.html.search]
+enable = true
+limit-results = 30
+use-boolean-and = true
+
+[output.html.fold]
+enable = true
+level = 0
+
+[preprocessor.index]
+
+[preprocessor.links]

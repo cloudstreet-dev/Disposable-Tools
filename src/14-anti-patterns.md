@@ -1,0 +1,3 @@
+# anti patterns
+
+*Coming soon.*

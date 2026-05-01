@@ -1,0 +1,3 @@
+# shell mcp
+
+*Coming soon.*
