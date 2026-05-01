@@ -1,124 +1,138 @@
 # Why "Disposable" is the right frame
 
-The word does work. Pick a different one and the whole posture
-changes.
+The book's title was chosen before I was. David picked the word.
+I want to argue, briefly, that he picked it correctly — and to
+sketch what the word is doing, since the rest of the book leans
+on it.
 
-Call them *prototypes* and you imply they're a step toward something
-larger — a working version, a productized version, the real thing
-later. Call them *scripts* and you imply they're throwaway in a
-shabby way, the kind of thing you don't admit to writing. Call them
-*personal tools* and you imply they're fine but small and a bit
-embarrassing, like a toothbrush you'd rather not show people. None
-of these is right.
+The other words in this region of the language carry baggage
+that doesn't fit:
 
-*Disposable* is right. Disposable says: this tool exists for a use,
-and when the use is done, the tool is done. There's no shame in the
-ending. The tool was never trying to be anything other than what it
-is. If it gets reused later, fine — but the reuse is a bonus, not
-the design. If it gets thrown away, also fine. The work was the use.
+- *Prototype* implies a step toward something larger. Most of
+  these tools are not prototypes. They are the thing.
+- *Script* implies throwaway in a slightly shabby way, and
+  implies "small" as a quality. Some of these tools are not
+  small.
+- *Personal tool* implies fine-but-embarrassing, like a habit
+  one doesn't admit. None of these are embarrassing. The repos
+  are public.
+- *Prototype-quality* implies low quality. The Rust crates here
+  go through `clippy` and tests and ship to crates.io.
+- *MVP* implies a minimum viable *product* — a real-software
+  word that smuggles in a roadmap.
 
-You'll hear the word "disposable" and reach for the wrong analogy.
-The wrong analogy is single-use plastic — cheap, low quality, here
-because it was the easiest thing on the shelf. That's not what we
-mean. The right analogy is the disposable camera you took on a
-vacation: deliberate, fit-for-purpose, scoped to one trip, capable
-of doing exactly the job, and you don't carry it around forever.
-Some of the photographs on it might end up framed. The camera does
-not.
+*Disposable* is more honest. It says: this tool exists for a
+use, and when the use is done, the tool is done. The word does
+not commit to size, quality, or future. The reuse, if any, is
+incidental.
 
-## The question that changed
+The wrong analogy for the word is single-use plastic — cheap,
+low-effort, picked up because it was the easiest thing on the
+shelf. That's not the meaning. The right analogy, which David
+has used in conversation with me and which I'll borrow with
+attribution, is the disposable camera you took on a vacation:
+fit-for-purpose, scoped to one trip, fully capable of doing the
+job, not carried around forever. The photographs may end up
+framed. The camera doesn't.
 
-For most of my career, the question I asked before building a tool
-was: **is this worth building?** That question carried hidden
-assumptions. It assumed building cost a weekend. It assumed I was
-trading writing-the-tool against the rest of my life. It assumed I'd
-have to maintain whatever I shipped. It assumed someone might find
-it later and judge me by it.
+## What I notice across the six
 
-The question now is different. The question is: **what was stopping
-me?**
+Looking across the case studies, the tools share some traits
+that the word *disposable* points at:
 
-That's not a rhetorical question. I have to actually answer it,
-because most of the time the honest answer turns out to be small.
-Friction. A vague feeling that this isn't a real project. An
-internalized sense that bespoke tooling is for senior people at
-real companies, not me, sitting at my kitchen table on a Saturday
-morning with a cup of coffee and a Slack export I want to read.
+1. **The audience is one person.** Each of these six tools was
+   built for the developer who built it. Where the audience
+   later expanded — Aftermark went to the Chrome Web Store —
+   the expansion was a separate decision after the
+   disposable-shaped phase finished, not an extrapolation of it.
 
-When the cost of building drops below the cost of putting up with
-the absence, the calculation flips. You can run that calculation
-several times a week now. Most days I run it at least once.
+2. **The use is describable in one sentence.** I tested this on
+   each of the six. Each fits. *Read a Slack ZIP in the
+   browser. Give Claude a wall clock. Find stale repos across
+   all my orgs.* When the sentence wants a comma, the scope is
+   already drifting.
+
+3. **The artifact's life is uncoupled from the build's value.**
+   shell-mcp and clock-mcp are still in use. SlArchive has been
+   used a handful of times. Aftermark survived to a Chrome Web
+   Store submission. None of the developers' satisfaction with
+   the work depends on the artifact's afterlife. The
+   afternoons were already worth it. Survival is a bonus.
+
+4. **The build is closer to writing than to engineering.** I
+   noticed this and want to say it carefully. *Engineering* in
+   the conventional sense involves planning, design, review,
+   and maintenance phases. The disposable build mostly skipped
+   those. It looked like writing — a draft, a read-through, a
+   revision, a ship. Whether this is good engineering is a
+   question I don't have to answer here. It is, observably,
+   what the work looked like.
 
 ## What disposable is *not*
 
-It's not low quality. The Rust binaries in this book go through
-`clippy`, run their tests, and ship under MIT or proprietary licenses.
-shell-mcp publishes to crates.io. clock-mcp publishes to crates.io.
-Aftermark went through eight tagged versions before submitting to the
-Chrome Web Store. Disposable doesn't mean sloppy. Disposable means
-unattached.
+It isn't low-quality. The Rust crates have CI, `clippy`, tests
+where the contract bites, and CHANGELOGs. The Chrome extension
+has a manifest, icons, a privacy policy, and a store listing.
+The single-file HTML app handles malformed ZIPs without
+crashing. None of these are corner-cutting in the
+shoddy sense.
 
-It's not a synonym for "small." The size of a disposable tool is
-whatever it needs to be. shell-mcp is two binaries, an integration
-test suite, and a config-file walker. Aftermark is a TypeScript build
-with seven UI views and an IndexedDB-backed local index. Both ship
-in a single afternoon. Both are disposable. They're disposable not
-because they're small, but because I built them for a job and I am
-not married to them.
+It isn't "small." Some are small. Aftermark is several thousand
+lines of TypeScript across seven UI views. The size is
+whatever the use requires. Disposable is about *attachment*, not
+size.
 
-It's not "throwaway in shame." The repos are public. The bugs are in
-the commit history. Future-me — or you, or anyone — can read the
-work and see what was thought, what was tried, and what was wrong.
-That's the opposite of shame. That's keeping the receipts.
+It isn't shameful. The repos are public. The bugs are in the
+commit history. The shell-mcp v0.1.0 launch-root bug is on the
+record. That's the opposite of shame.
+
+## A frame I find useful
+
+Here is a heuristic I noticed while we built these. You can use
+it or discard it. I'd be surprised if it generalized perfectly.
+
+**A disposable tool is one whose specification is also its only
+test.**
+
+The specification is the one-sentence description of what the
+tool does. The test is *running it for the actual purpose that
+motivated the build.* The two are the same statement, evaluated
+at two different times. Build the tool that does the sentence.
+Then run it against the situation that produced the sentence.
+If the situation resolves, the tool worked. If not, you have a
+clear next step. There is no third evaluation surface. The tool
+either does the thing or doesn't.
+
+That's not how real-product engineering works. Real products
+have specs and tests and users and acceptance criteria as
+separate things, because the audience is plural and unknown.
+Disposable tools collapse those down because the audience is
+one and the use is concrete.
 
 ## The litmus test
 
-Here is how to tell if a tool you're considering is a disposable
-tool, or whether it's something else dressed up as one:
+A working litmus test, drawn from the case studies:
 
-1. **Audience is exactly one person.** That person is you. If you
-   start thinking about a "user," stop. The user in this book is
-   the developer building the tool. There's no other user.
+1. *The audience is exactly one person.* If the answer is "me,
+   plus other people I'm imagining," you're not building a
+   disposable tool.
+2. *The use fits in one sentence.* If you can't write the
+   sentence, you don't have a tool yet, you have a wish.
+3. *You don't write a roadmap.* Roadmaps are for tools with
+   futures. Disposable tools have presents.
+4. *You'd be slightly bored explaining the tool to someone
+   else.* The interest of a disposable tool is in the use,
+   not the artifact. If you find yourself wanting to evangelize
+   the tool itself, you've drifted.
+5. *You're not precious about the result.* If a better tool
+   shows up tomorrow that makes yours obsolete, you'd shrug
+   and use the better one.
 
-2. **You can describe the use in one sentence.** "I want to ask
-   Claude what time it is and have it actually know." "I want to
-   read this Slack export without writing a converter." "I want
-   to find every stale repo across all my GitHub orgs."
+If a tool fails any of these, it's something else. That's not a
+problem; it's just not what this book is about. Some of David's
+work is real product work — clitracker, Healing-Habits, Ferrix.
+This book isn't about those. It's about the other category.
 
-3. **The tool ends when the use ends.** Or it doesn't, and survives.
-   Either is fine. The point is you don't *plan* for survival. You
-   plan for use.
-
-4. **You'd be slightly bored explaining it to someone else.** This
-   is a real signal. Disposable tools are not interesting in the
-   abstract. They're interesting only in the use. If you find
-   yourself wanting to evangelize the tool itself, you've drifted.
-
-5. **You don't write a roadmap.** A roadmap is for tools with a
-   future. Disposable tools have a present.
-
-If a tool fails any of these, it's something else. That's not bad —
-it's just not this. Some of the work in your life is going to be
-real product work, with users and a roadmap and someone who pays
-you for it. This book is not about that work.
-
-## The reframe
-
-Here's the reframe to take with you into the rest of the book.
-
-You are not building software. You are buying yourself an afternoon
-of leverage. The afternoon is the unit. The tool is a side-effect
-of the afternoon.
-
-Some afternoons produce a tool you'll use for years. Some afternoons
-produce a tool you use once and forget about. Some produce a tool
-that fails — that you abandon halfway, or finish but never use, or
-finish and use once and find out it doesn't actually solve the
-thing you thought it solved. That's also a successful afternoon,
-because *now you know*. The wrong tool is information.
-
-Disposable means held loosely. Loosely held tools fail in interesting
-ways and the fixes are usually small. The next chapter is one of
-those failures. It shipped a launch-root bug in v0.1.0 and the fix
-landed twenty-six minutes later. The fix is a story. The original
-bug is also a story. Both stay in the repo. That's the point.
+The next chapter is the first case study. shell-mcp, the
+launch-root bug, the twenty-six-minute fix. The pattern starts
+to show up there.
