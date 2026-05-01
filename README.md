@@ -11,7 +11,7 @@ to do with that.
 Grounded in real case studies — every tool discussed is on GitHub with a
 real commit history. None of them were planned. All of them shipped.
 
-**Read the book:** _live URL pending first deploy._
+**Read the book:** <https://cloudstreet-dev.github.io/Disposable-Tools/>
 
 ## Why this book
 
