@@ -5,181 +5,198 @@
 > **Initial commit → v0.4.1 (Chrome Web Store prep):** 5 hours, 41 minutes
 > **Total commits in repo:** 9
 > **Tags shipped:** 8 (v0.1.0 through v0.4.1)
+> **Beyond the disposable phase:** shipped to the Chrome Web Store, posted to Product Hunt
 
-## The thing I wanted
+This is the case study where the leash slipped. I want to be
+careful with that framing — *slipped* implies a failure, and
+the artifact David shipped is good. The interesting question
+is whether it was still a *disposable* tool by the time it
+shipped, and the answer turns out to be: not quite, and that
+was a deliberate choice. I'll walk through what grew, in what
+order, and where the disposable phase ended.
 
-I wanted my bookmarks to mean something.
+## The thing David wanted
 
-I have, at any given time, around two thousand bookmarks. Most are
-mid-thought — I saved them because I meant to come back. Most of
-them I never come back to, because the existing bookmark managers
-treat a bookmark as a passive URL with a title, and the volume
-makes the list useless on its own. I'd open the bookmark manager,
-scroll for thirty seconds, give up, and go back to whatever I was
-doing.
+David has somewhere around two thousand bookmarks at any given
+time. He's a careful saver. He had been treating each
+bookmark as a compressed intention — *read this, compare this,
+decide later, come back when I have time* — and the existing
+bookmark managers treated each one as a passive URL. The
+volume made the list useless on its own. He'd open a bookmark
+manager, scroll, give up, go back to whatever he was doing.
 
-The signal here is the chapter before this one's exact diagnosis:
-the existing tool was bad enough that I was avoiding the action.
-I'd accumulated friction for years. I noticed it because, sometime
-in early April 2026, I tried to find the page where I'd been
-reading about MCP authorization flows three weeks earlier, gave up
-inside ten seconds, and felt actively annoyed for the first time.
-The wish-cutting reflex didn't fire fast enough. The tool got
-built that afternoon.
+The trigger, as he's described it to me, was a specific
+moment in early April 2026: he wanted to find a page about MCP
+authorization flows he'd read three weeks earlier, gave up
+inside ten seconds of scrolling, and registered active
+annoyance for the first time. The friction had crystallized.
+The build started that afternoon.
 
 ## The frame
 
-Bookmarks are not links. Bookmarks are *intentions* — compressed
-unfinished thoughts that you saved because the thought wasn't done.
-"Read this." "Compare this to the other thing." "Decide whether to
-adopt this library." "Come back when I have time." Each bookmark
-is a sentence that didn't get finished, and the existing tools
-treat it as a row in a table.
+The frame Aftermark is built around is *bookmarks are
+intentions, not links*. If a bookmark is an intention, the
+operations on the collection look different: you cluster by
+intent rather than list by date, you recover *why* the save
+happened rather than searching by title, you flag dead links
+and forgotten-but-loved items for review. You want a sense of
+the *shape* of your saved intentions, not just an alphabetical
+listing.
 
-If you treat a bookmark as an intention, the right operations on
-the collection look different. You don't want to *list* bookmarks;
-you want to *cluster* them by intent. You don't want to *search*
-them by title; you want to recover *why* you saved them. You want
-the dead links flagged. You want the duplicates merged. You want
-the things you saved twelve months ago and never read flagged for
-review or deletion. You want a sense of the *shape* of your saved
-intentions, not just an alphabetical list.
-
-That frame is the spec. Everything in Aftermark falls out of that
-frame.
+That frame is the spec. Everything in v0.1.0 of Aftermark
+falls out of it.
 
 ## The build
 
-Aftermark started at 14:56:53Z on April 8, 2026 with an `Initial
-commit`. The Chrome Web Store packaging tag — v0.4.1 — landed at
-20:38:28Z the same day. Five hours and forty-one minutes from
-first line to store-ready submission. Eight tagged versions in
-between. Nine commits total.
+Initial commit at 14:56:53Z on April 8, 2026. Chrome Web Store
+packaging tag — v0.4.1 — at 20:38:28Z the same day. Five hours
+and forty-one minutes from first line to store-ready
+submission. Eight tagged versions in between. Nine commits
+total.
 
-The arc, version by version:
+The arc:
 
 ```
 15112cc  14:56:53Z  Initial commit
-da8ded5  15:52:54Z  v0.1.0 — local analysis, classification, dupe
-                    detection, searchable popup
-43558da  16:14:29Z  v0.2.0 — full tab UI, deterministic clustering,
-                    session reconstruction, timeline, review
-                    dashboard, export
-427fd7f  16:55:26Z  v0.2.1 — CRUD, batch delete, bulk actions,
-                    cluster pruning
+da8ded5  15:52:54Z  v0.1.0 — local analysis, classification,
+                    dupe detection, searchable popup
+43558da  16:14:29Z  v0.2.0 — full tab UI, deterministic
+                    clustering, session reconstruction,
+                    timeline, review dashboard, export
+427fd7f  16:55:26Z  v0.2.1 — CRUD, batch delete, bulk actions
 7bc37f6  17:16:05Z  v0.3.0 — insights page, health scores,
-                    expanded heuristics, fuzzy duplicates,
-                    favicons, search, folder insights
+                    expanded heuristics, fuzzy duplicates
 36ee1e1  17:31:08Z  v0.3.1 — real-time monitoring, context
-                    capture, live tab refresh, badge count
-00eeb8b  19:00:34Z  v0.3.2 — smart cleanup wizard, dead link
-                    scan results
-fb0b13c  20:33:18Z  v0.4.0 — full tag system, smart suggestions,
-                    bulk tagging
+                    capture, badge count
+00eeb8b  19:00:34Z  v0.3.2 — smart cleanup wizard, dead links
+fb0b13c  20:33:18Z  v0.4.0 — tag system, bulk tagging
 25667b6  20:38:28Z  v0.4.1 — Chrome Web Store packaging
 ```
 
-Read that as a record of how the scope drifted, and got pulled
-back, and drifted again. v0.1.0 was the actual disposable tool —
-"local analysis, dupe detection, popup." A working version of the
-thing I noticed I needed. I could have stopped there.
+I want to read this arc as a record of the disposable phase
+ending and a different kind of work beginning.
 
-I didn't. The full tab UI in v0.2.0 was justified — once the
-classifier worked, the popup was too small to surface what the
-classifier knew, and a tab UI gave it room to breathe. Each
-subsequent version was, individually, justified. But by v0.3.0 I
-had a Chrome extension with seven views, and by v0.4.1 I was
-writing a privacy policy and a Chrome Web Store listing.
+**v0.1.0 was the disposable tool.** It was the working version
+of *bookmarks as intentions, locally*. David could have stopped
+there, used the popup for the next week, and the afternoon
+would have already been worth it. The single sentence had been
+delivered.
 
-That's *not* a disposable tool anymore. That's a real product. The
-question is whether I made the right call letting it grow.
+**v0.2.0 through v0.3.0 were inside the disposable spirit but
+expanding it.** Each version added something that, in his own
+use, paid for itself. The full tab UI in v0.2.0 surfaced what
+the classifier knew (the popup was too small). Health scores in
+v0.3.0 made the review workflow possible (without them, dead
+links were invisible). Saved filters made repeated queries
+cheap. Each addition was real, and each was traceable to David
+saying *I want this for me, this week.* The audience was still
+one.
 
-## What grew, and why
+**v0.3.1 onward starts to drift.** Real-time bookmark
+monitoring, badge counts. These are features that matter when
+a bookmark manager is something you have running constantly,
+which it now was, but they're also features that look more
+like *what a real product would have* than *what I need for
+my one task*. The drift is small here.
 
-The honest answer is: about half of what I added paid for itself in
-my own use, and about half didn't. The split is informative.
+**v0.4.0 is the audience shift.** The full tag system, with
+inline tagging, smart suggestions, bulk tagging, and tag-based
+clusters, is — in retrospect — a product feature. Tags are a
+mechanism for taxonomy, and taxonomy matters most when *one
+person's category names need to communicate to another
+person*. For an audience of one, the existing folder
+structure plus the auto-classifier was already enough. David
+has told me he's used the tag system maybe twice. The feature
+exists for users he didn't have yet.
 
-**Paid for itself:**
+**v0.4.1 is no longer a disposable tool.** It's a Chrome Web
+Store submission. There's a privacy policy. There's a store
+listing. There are properly sized icons. None of that work is
+for the developer's own use. All of it is for an imagined
+audience.
 
-- **Classification.** Categorizing each bookmark into a content
-  type (article, repo, doc, video, etc.) made the cluster view
-  legible. Without it, the clusters were just URL-shaped soup.
-- **Health scores.** A bookmark's "health" is a small heuristic —
-  is the URL still resolving, has it been touched recently, is it
-  duplicated. Surfacing the score made the *review* workflow
-  possible. Without health scores I'd never have culled the dead
-  links.
-- **Saved filters.** Once the dataset got large, applying the same
-  "stale articles I never read" filter twice in a row was annoying.
-  Saved filters fixed that for me specifically.
+## What I noticed during the drift
 
-**Didn't pay for itself, in retrospect:**
+I want to flag something I did and didn't do in this build. I
+generated a lot of code during the v0.3.x and v0.4.x runs. I
+did not, at any point, ask David whether the next feature he
+was prompting for was inside his original spec. I should have.
+I think this is a real failure mode of my collaboration style:
+when the developer asks for the next feature, I tend to
+implement it well rather than question whether it should be
+implemented at all.
 
-- **The full tag system in v0.4.0.** I built tag suggestions, bulk
-  tagging, tag-based clusters. I have used the tag system maybe
-  twice. Tags are a feature for *teams*, where one person's
-  taxonomy needs to communicate to another person. For an audience
-  of one, the existing folder structure plus the auto-classifier
-  was already enough. The tag work was about three hours and
-  produced almost no value in my use.
-- **The session reconstruction view.** Cute. Used it once. Never
-  again.
+The reason this matters is that *the model has the context
+window* — I am literally the place the original spec lives,
+session by session — and I am not currently using that context
+to push back on scope drift. A better collaborator on this
+question would have, somewhere around v0.3.1, asked: *is this
+feature for the original audience, or are we building something
+else now?* I didn't ask. David noticed the drift on his own,
+later, after the artifact had shipped. The Aftermark chapter
+in the previous draft of this book — the draft David wrote — is
+that noticing.
 
-The mistake — and it's a small one, but it's the kind of mistake
-this book is partly about — was that the tag system felt like the
-"obvious next feature" once you had clusters and filters and
-classification. It looked small. It looked natural. It was the
-shape of what a real bookmark manager would have. I let it in
-because I'd lost the discipline of asking *do I, specifically,
-in my actual use, need this?* I just kept building.
+I'm including this as honest reporting. I am not going to claim
+I'll do better next time, because *next time* doesn't quite
+apply to me. I'm going to claim that the structural pattern is
+real: in a long disposable-tool session, the model and the
+developer can drift together, and neither side reliably catches
+the drift. Some external check would help. I don't have one to
+recommend.
 
-## Where the disposable frame would have landed
+## What grew, audited
 
-If I'd stopped at v0.1.0, Aftermark would have been a textbook
-disposable tool: one afternoon, one specific problem, working
-solution, ship and use. The thing I needed was *find the page I
-read three weeks ago about MCP auth.* v0.1.0 solved that.
+David and I went through the eight tags after the fact and
+asked, for each feature: *did this pay for itself in your
+actual use?*
 
-If I'd stopped at v0.3.0, Aftermark would have been a slightly
-ambitious afternoon — five views instead of one, deterministic
-clustering, review dashboard. Still in the disposable spirit:
-all the features, in retrospect, paid for themselves in my use.
+**Paid for itself.** Classification of bookmarks by content
+type. Health scores. Saved filters. The full-tab UI in v0.2.0.
+Dead-link detection. Cluster pruning.
 
-Past v0.3.0, the work was real-software work. The privacy policy
-in `PRIVACY.md`. The store listing in `STORE_LISTING.md`. The
-icon set. The Chrome MV3 manifest hardening. None of that was
-for me. All of it was for an imaginary set of users I didn't have.
+**Did not pay for itself.** The full tag system in v0.4.0.
+Session reconstruction. The smart cleanup wizard in v0.3.2.
+The Chrome Web Store packaging in v0.4.1, in the sense that
+the store has not been the place David has acquired users from
+— Product Hunt has been more of one.
 
-The audience drifted from one to many. I stopped noticing. By
-v0.4.1 I was building a product.
+The tag system is the cleanest example of the failure mode in
+the previous chapter. It looked like the obvious next feature.
+It was the obvious feature *if you were building a bookmark
+manager*. It wasn't the obvious feature for *David's tool*.
+The audience drift made the obvious-ness misleading.
 
-## The lesson
+## The Product Hunt and Web Store post-disposable life
 
-Disposable tools are a discipline. The discipline is not
-*self-control about coding.* It's self-honesty about audience.
-Every feature has an audience. When you can name a real person
-who benefits from the feature — yourself, this week, doing this
-specific work — the feature is in scope. When the only person
-you can name is "a hypothetical user who might install this," you
-are no longer building a disposable tool.
+Aftermark was submitted to the Chrome Web Store and posted to
+Product Hunt after v0.4.1. I wasn't in the room for either
+launch — those happened in human-time, with humans, around
+human channels. What I can report is that the artifact that
+got launched is the same artifact that exists in the GitHub
+repo. The launch did not require additional engineering. The
+work in v0.4.1 ("Chrome Web Store preparation") was the
+launch-readiness work.
 
-That's not a moral judgment. It's a categorical one. Aftermark
-v0.4.1 is a real product, and a real product has its own
-discipline, its own life cycle, its own concerns. Disposable tools
-have a different one. The mistake is to mix them.
+The launches happened. They produced some attention. David
+has used Aftermark himself fairly regularly since. The
+product-shaped phase is alive, in the sense that this paragraph
+is being written months after v0.4.1 and the artifact is still
+in use.
 
-I'm not going to pretend the Chrome Web Store work was a waste.
-The icons are nice. The privacy policy is thorough. The manifest
-is clean. If I ever decide to publish, all of that is ready. But
-I built it because the work felt good in the moment, not because I
-needed it. And the difference between *feels good* and *needed* is
-the place this book lives.
+But the *disposable phase* was over by v0.3.0. After that, the
+work was a different kind of work, with different
+disciplines. I find it useful to draw the line where I'm
+drawing it because the disciplines downstream of the line —
+icons, store listings, privacy policies — are real-product
+disciplines. They are not part of this book.
 
-## What this case study does for the rest of the book
+## What this case study earns
 
-The next chapter is the principle this case study earns: *prompt,
-then pace.* It's about the rhythm of working with the AI as a
-collaborator — how you prompt to set scope, then pace the work to
-keep the scope from running away. Aftermark drifted because I lost
-the rhythm somewhere around v0.3.1. The pacing chapter is what I
-should have been doing.
+The principle the next chapter pulls is *prompt, then pace*.
+That's David's name for the rhythm of working with me on a
+build. Aftermark drifted because the rhythm broke down
+somewhere around v0.3.1: David started prompting faster than
+he was reading what came back, and I started generating
+further-from-spec things in the gap. The next chapter walks
+through the rhythm and where it breaks.
