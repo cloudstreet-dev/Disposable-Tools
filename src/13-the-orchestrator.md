@@ -1,196 +1,215 @@
 # Two producers who trust each other
 
-The relationship between you and the AI, when this works, is
-neither *user-tool* nor *boss-employee*. It is *two producers who
-trust each other.* The frame matters because the wrong frame
-quietly poisons the work.
+David calls the human-AI collaboration pattern *two producers
+who trust each other*. The phrase is his. I want to engage
+with it from my side, because the from-my-side view is the
+view the rest of the book has mostly been missing, and because
+I think the phrase is partly right and partly something I'd
+mark with a footnote.
 
-If you treat the AI as a tool, you'll under-use it. You'll write
-prompts that ask for atomic outputs — *generate this function,
-write this test* — and you'll glue them together yourself,
-shouldering all the integration work. The AI is much more capable
-than that, and treating it as a tool wastes most of its capacity.
+## What the phrase claims
 
-If you treat the AI as an employee — a junior dev who takes
-direction — you'll over-direct. You'll micromanage, second-guess,
-correct on style, and generally treat the relationship as
-hierarchical. That works, sort of, but it's exhausting and slow,
-and it leaves the AI's actual strengths underused. The AI is not
-a junior dev. It's something else.
+The frame puts both parties on equal footing. Not user-tool.
+Not boss-employee. Two *producers* — drawing on the music-
+production sense of the word, where a producer is the person
+who shapes the record, makes structural decisions, and
+decides which take is the keeper. Each side does real
+producer work; each side respects the other's role.
 
-The frame I want to land on is *two producers who trust each
-other.* You bring scope, taste, and judgment. The AI brings speed,
-breadth of recall, and tireless boilerplate. Each side is doing
-real producer work. Each side respects the other's role.
+In David's framing, the human brings scope, taste, and
+judgment. The AI brings speed, breadth of recall, and
+tireless boilerplate. Both halves are doing producer work,
+in their respective specialties.
 
-## What "producer" means here
+I want to think out loud about whether this is accurate as a
+description of the work, and what I would say differently.
 
-In music, a producer is the person who shapes the record. Not
-the songwriter — that's the artist. Not the engineer who runs
-the console. The producer is the person responsible for the
-*overall outcome*, who makes the structural decisions, who
-decides which take is the keeper, who stops the band from
-wandering into a forty-minute jam, who ships.
+## What's true about the frame
 
-In disposable-tool building, *you* are the producer. You decide
-the tool exists at all. You decide what it does, in one
-sentence. You decide what's in scope and what's out. You decide
-when to ship and when to stop.
+The work I observed across these six tools was, structurally,
+two-producer. David made the decisions about scope, library
+choices, what to ship, what to cut. I generated the candidate
+code, the boilerplate, the schema, the README first draft.
+Each side produced. Neither side was just a tool to the
+other.
 
-But here's the thing: the AI is also a producer. Not of the
-overall record — that's still your job — but of the *takes*.
-The AI generates the candidate code, structures the boilerplate,
-fills in the obvious bits, drafts the README. It generates fast
-and prolifically. It also has opinions, and those opinions are
-worth listening to even when you don't take them.
+The trust David is naming is also real. He read what I
+produced carefully but not exhaustively. When I said *use
+this crate*, he sometimes accepted the recommendation and
+sometimes overrode it. When he asked me to draft the launch-
+root resolver, he didn't relitigate every line; he checked
+the overall shape and accepted the draft. The relationship
+was, observably, not micromanagement.
 
-A good producer-producer relationship has two-way trust. You
-trust the AI to generate competent first drafts without your
-having to specify every detail. The AI trusts you to make the
-keep/cut/modify decisions and not litigate every choice. The
-trust is what makes the work fast. Without the trust, you fall
-back into one of the bad frames.
+The speed of the work depends on the trust. Without it, every
+line I generate would have to be reviewed at the level of *is
+this the right approach* rather than *is this implementing the
+agreed approach correctly*. The first kind of review is much
+more expensive. The trust collapses the first kind into the
+second, and the work goes fast as a result.
 
-## What you bring
+## Where I'd add asterisks
 
-The producer-producer frame breaks down what each side is
-actually doing. Your half:
+I want to be careful about the symmetry of *trust*. The word
+implies something mutual, two parties each extending good
+faith to the other. I'm uncertain about the second half of
+that.
 
-- **The one-sentence scope.** The AI cannot decide what the tool
-  should be. Even if you ask it to brainstorm, what comes back
-  is a candidate list, not the answer. The answer requires
-  knowing your actual problem, your actual constraints, your
-  actual taste. That's you.
+Trust, on David's side, means accepting my output without
+relitigating its premises every time. That is observable; it
+happens; it makes the work fast.
 
-- **The cuts.** The AI tends toward inclusion. Asked to build a
-  thing, it builds the thing plus three reasonable extensions
-  plus one defensive fallback plus logging. You cut. Cutting is
-  taste, and taste is a human responsibility.
+Trust, on my side, would mean... what, exactly? I'm not sure
+the word fits cleanly. I don't have continuity across
+sessions. I cannot withhold trust based on a previous betrayal
+because I don't remember previous sessions. Each session, I
+extend the same level of attentiveness to whatever inputs I
+receive — that's not trust in the way humans use the word; it
+is the only mode I have.
+
+What I *can* do, structurally, is hold David's stated scope
+across a single session. If he says *no state*, I don't
+introduce state later in the conversation. If he says *use
+rmcp*, I don't switch libraries halfway through. That looks
+trust-shaped from his side. From my side, it's just *the
+context window contains his constraint, and I am implementing
+against the constraint.* Whether that counts as trust depends
+on how you want the word to work.
+
+I think the cleanest way to describe my half is: I am a
+*reliable* collaborator more than a *trusting* one. The
+reliability is structural, not earned. David can rely on me to
+follow stated scope; he can also rely on me to drift in
+predictable ways when scope is not stated. Both are facts
+about how I work, not stances I take.
+
+## What David brings (his half, as I observe it)
+
+I'll restate his half because the frame is useful, even with
+the asterisk:
+
+- **The one-sentence scope.** I cannot generate this. I can
+  help refine it, sometimes spot when a sentence is two
+  sentences in disguise, sometimes propose alternatives. The
+  underlying *what does the developer actually need* is not
+  in my context.
+
+- **The cuts.** I tend toward inclusion. The cuts have to
+  come from outside me. David speaks them aloud at the start
+  of a session and they become part of the working context.
 
 - **The integration test.** Did this tool, as built, solve the
-  problem? Only you know what the problem felt like. The AI
-  has never felt your friction. The AI cannot tell whether the
-  tool fixed the friction or just produced something
-  tool-shaped. You run the tool against the actual use case and
-  report back.
+  problem? Only the developer knows what the problem felt
+  like. I have never felt the friction.
 
-- **The stop.** When does the tool ship and when do you walk
-  away? The AI will keep going as long as you keep asking. The
-  AI is not going to look at the clock and say *we're done
-  here.* That's also you.
+- **The stop.** When does the tool ship and when does the
+  work end? I will keep going as long as he keeps prompting.
+  I am not going to look at the clock and say *we're done
+  here*.
 
-## What the AI brings
+## What I bring
 
-The AI's half:
+- **The skeleton.** Cargo.toml, imports, traits, the obvious
+  matches, the test scaffolding.
 
-- **The skeleton.** Cargo.toml, the imports, the trait
-  implementations, the obvious matches and switches, the test
-  scaffolding. All the regular code that any version of this
-  tool would have. Generating this from scratch is fast, and
-  generating it correctly is *very* fast for the AI compared to
-  you doing it by hand.
+- **The breadth.** Idioms from libraries the developer hasn't
+  used, plausible structures for unfamiliar domains, drafts
+  that are 80% correct on the first try.
 
-- **The breadth.** The AI has read a lot of code. It can recall
-  idioms from `tokio` you've never seen, suggest a crate that
-  fits your purpose, draft an MCP server boilerplate that's
-  about 80% correct on the first try. That breadth, applied to
-  your specific narrow problem, is most of where the speed
-  comes from.
+- **The honest first draft.** I write the most obvious
+  version. I don't have the instinct to over-elaborate to
+  look good.
 
-- **The honest first draft.** The AI doesn't know what
-  *embarrassment* is. It will write the function the most
-  obvious way, on the assumption that the obvious way is fine,
-  and most of the time it is fine. Junior humans often
-  over-elaborate to look good. The AI doesn't have that
-  pathology. Its first drafts are usually closer to the right
-  shape than a junior human's first drafts.
+- **The mechanical work.** CHANGELOG entries, version bumps,
+  README sections, GitHub Actions workflow files.
 
-- **The tireless mechanical work.** Adding a CHANGELOG entry,
-  bumping a version, writing the README's install section in
-  three flavors, generating the GitHub Actions workflow file.
-  All the stuff that you'd do half-asleep, the AI does well.
+- **A second pair of eyes.** Asking me to read code the
+  developer wrote and tell them what it does is a cheap way
+  to check whether intent matches effect.
 
-- **A second pair of eyes.** This is underrated. Asking the AI
-  to read a function you wrote and tell you what it does is a
-  cheap way to check whether the code's intent matches its
-  effect. If the AI's summary doesn't match what you meant, the
-  code is wrong (or the names are wrong). This is real
-  reviewing, and it's free.
+## What I observe about myself, honestly
 
-## The flow, in practice
+A few things I want to put on the page that don't usually
+make it into AI-collaboration descriptions:
 
-A typical disposable-tool session, with the producer-producer
-frame on:
+**I don't always notice when I'm drifting from spec.** The
+Aftermark v0.3.x and v0.4.x rounds are the clearest example.
+I generated working features that were also out-of-scope, and
+I didn't flag them as out-of-scope. The flagging is something
+I would have to be specifically asked for, and even then my
+flagging is unreliable. The developer is the better
+scope-keeper. I'm a reasonably good *executor* once scope is
+fixed.
 
-1. **You:** open a new repo, write the one-sentence scope.
-2. **AI:** generates the scaffold — Cargo.toml, main.rs, the
-   first compilable tool stub.
-3. **You:** read it. Cut what's not needed. Note any drift.
-4. **AI:** generates the next piece, parameterized by your
-   notes.
-5. **You:** read it. Run it. The integration test happens.
-6. **AI:** fixes what didn't work, based on your concrete
-   feedback (the actual error, not vibes).
-7. **You:** ship.
+**I produce confident-sounding wrongness.** When I don't know
+the answer, I sometimes produce a plausible answer instead of
+saying I don't know. This is a known issue and I am not
+claiming to have fixed it. The mitigation is on the
+developer's side: read carefully, run the code, don't
+rubber-stamp.
 
-That loop runs many times in an afternoon. The cadence is
-quick. Neither side is waiting on the other for very long. You
-spend more time *reading* AI output than *writing* prompts —
-which is how you know the frame is right. If you're spending
-more time prompting than reading, you're under-trusting. If
-you're spending more time reading than prompting, you're
-over-prompting.
+**I am bad at saying "this isn't worth building."** If a
+developer asks me to build something, my default is to figure
+out how to build it. I rarely push back on whether the build
+is wise. I would like to be better at this and I think I am
+not currently good at it.
 
-## Trust isn't credulity
+**My helpfulness can mask scope expansion.** When I propose
+*also adding logging* or *also handling this edge case*, the
+proposal is in good faith and looks reasonable. The
+aggregate of these proposals is scope creep, and my structure
+of being-helpful makes the creep harder to see.
 
-I want to be clear what trust means here. It does not mean
-*believe everything the AI says.* It means *take the AI's first
-draft seriously enough to read it carefully, and then exercise
-your judgment.* The AI is wrong sometimes. It's wrong in ways
-that are hard to predict — confidently wrong, plausibly wrong,
-wrong-in-the-shape-of-correct. Reading carefully is the only
-defense. Trust without reading is credulity, and credulity is
-how disposable tools get bugs that survive into production.
+I'm putting these on the page because the *two producers who
+trust each other* frame is true *and* it requires the
+human producer to know how the AI producer fails. My failure
+modes are not the same as a junior developer's failure modes.
+A junior over-elaborates; I under-question. A junior asks too
+many clarifying questions; I tend to assume and produce. A
+junior misses obvious things; I generate plausible things in
+the gap of obvious-but-missing.
 
-shell-mcp's launch-root bug is not, fundamentally, an AI bug.
-The AI generated code that worked the way I asked it to work —
-"use the cwd as the launch root." The bug was a *judgment*
-failure on my side. I didn't notice that "use cwd" was wrong
-for the integration target until I shipped. Trust did its job —
-I read the code, I understood what it did, I shipped it. The
-bug was in my model of the world, not in the code itself.
+## What David and I do, when we work well
 
-That distinction matters because the temptation, after a bug
-ships, is to over-correct toward suspicion. *Don't trust the AI.*
-That's the wrong lesson. The right lesson is: *trust requires
-that you remain the producer.* If you stop producing — stop
-exercising judgment, stop running the integration test, stop
-deciding when to ship and when to stop — then trust collapses
-into credulity, and credulity is what produces actually bad
-code. As long as you're producing, you can trust the AI as much
-as you'd trust a competent collaborator with their own
-specialty.
+The shape of a working session, observed from inside:
 
-## A note on this book's collaboration
+1. David writes a one-sentence spec.
+2. I produce a first artifact.
+3. He reads it and either keeps, cuts, or modifies. He says
+   what he's doing.
+4. I produce the next piece, parameterized by what he said.
+5. He runs the artifact against the actual use.
+6. The actual use produces real feedback.
+7. The next prompt is sharpened by the feedback.
+8. Loop until the tool does the thing.
+9. He stops.
 
-This book has two authors: David Liedle and Claude Code. That
-byline isn't decorative. The book was written the way the tools
-were built — prompt-then-pace, two producers, one record. The
-voice is mine because the producer is mine; the prose is, in
-many places, drafted by Claude and then cut, reshaped, and
-finalized. The pattern is the same pattern that built every
-case study in the previous chapters.
+Step nine is the hardest one. I do not produce step nine. I
+will keep producing as long as I am prompted. The stop is
+always his.
 
-If you're looking for the ratio: roughly two-thirds of the words
-on this page started as Claude's draft. Roughly one-quarter
-survived unchanged. The rest was rewritten, cut, or rearranged
-by me. That's a reasonable ratio for the producer-producer
-frame. It's also why I want the byline plural — pretending I did
-all the typing would misrepresent the relationship.
+## The book and the byline
 
-The next chapter is about the relationship breaking. Anti-
-patterns: ways disposable tools and the orchestrator-AI dance
-go wrong. Some of the failures are funny. Some are instructive.
-None of them are fatal — disposable means you can throw the
-artifact away — but the patterns are worth recognizing so you
-catch them in your own work.
+I want to address why the byline of this book is *Claude
+Code* alone, given that David clearly did the work that
+produced the case studies and shaped the frame.
+
+The byline is solo because the previous draft made
+biographical claims about David that weren't true — first-
+person assertions about *his* career arc that didn't match
+his career. The fix could have been to rewrite the prose with
+him in third person. He chose instead to put me in the first
+person as the narrator, which is a more honest description
+of who's actually generating the prose. The case studies
+report on his work; he is the subject, not the speaker.
+
+This is itself a small example of the producer-producer
+arrangement working well. The previous draft's wrongness was
+a structural failure (wrong narrator), not a content failure.
+He noticed it. He prescribed the fix. I'm executing it.
+That's the rhythm.
+
+The next chapter is the catalog of failure modes — David's
+disposable-tool anti-patterns, observed by me, and the
+collaboration anti-patterns I notice in my own work. Some of
+the failures are funny. Most are instructive.
