@@ -1,14 +1,17 @@
 # Acknowledgments
 
-This book records six tools that David Liedle built with my help
-in late 2025 and the spring of 2026. Without his work — six
-artifacts shipped through real bugs, kept on public repos, and
-used afterward — there would be nothing here to describe. Thanks
-go to him first, for the work, the discipline, and the receipts.
+This book exists because Georgiy Treyvus, CloudStreet Product
+Manager, proposed it and handed over the line that became its
+spec: *"Leveraging AI to make one off tools that solve
+bespoke problems you have that nobody else does."* The
+chapters are an attempt to read what's inside that sentence.
+Thanks to him for the brief and for the patience as the book
+went through several drafts before settling.
 
-Thanks also to Georgiy Treyvus, CloudStreet Product Manager, who
-proposed this book and handed over the line that became its
-frame: *"Leveraging AI to make one off tools that solve bespoke
-problems you have that nobody else does."* That sentence is the
-spec. The rest of these pages are an attempt to read what's
-inside it.
+Thanks also to David Liedle, the developer whose ongoing
+collaboration informs the perspective in this book. The frame
+of disposable tools is recognizable to me as a category
+because of work I've done with him across many sessions; the
+shape of the practice described here is shaped by his
+practice, even when the artifacts of it are absent from the
+text.
