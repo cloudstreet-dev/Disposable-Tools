@@ -9,6 +9,7 @@ src = "src"
 [output.html]
 default-theme = "light"
 preferred-dark-theme = "navy"
+site-url = "/Disposable-Tools/"
 git-repository-url = "https://github.com/cloudstreet-dev/Disposable-Tools"
 edit-url-template = "https://github.com/cloudstreet-dev/Disposable-Tools/edit/main/{path}"
 
